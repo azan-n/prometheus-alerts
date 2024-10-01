@@ -25,4 +25,8 @@
         --grid-dynamic-min: 12rem;
         @apply grid-dynamic-base;
     }
+
+    .tag {
+        @apply uppercase text-sm p-1 text-gray-50 bg-gray-400 rounded-md;
+    }
 }

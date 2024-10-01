@@ -14,7 +14,7 @@
 
 @layer components {
     :root {
-        --grid-dynamic-min: 20rem;
+        --grid-dynamic-min: 18rem;
     }
 
     .grid-dynamic-base {

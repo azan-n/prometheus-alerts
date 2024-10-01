@@ -85,8 +85,11 @@ type JsonExpected = {
 							<div class="grid grid-dynamic-base gap-6">
 								{group.services.map((service) => {
 									return (
-										<div class="border p-2">
-											<h2>{service.name}</h2>
+										<div class="border p-6">
+											<div class="flex flex-row gap-2 pb-4 items-center">
+												<ServiceLogo iconName={service.name.split(" ")[0]?.toLowerCase() ?? ""} />
+												<h3 class="font-bold">{service.name}</h3>
+											</div>
 											<p class="text-ellipsis line-clamp-3">
 												<span class="tag">
 													{service.exporters

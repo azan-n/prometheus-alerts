@@ -1,0 +1,28 @@
+---
+interface Props {
+    iconName: string;
+}
+
+import { Icon } from "astro-icon/components";
+import { icons } from "@iconify-json/simple-icons";
+
+const { iconName } = Astro.props;
+
+const prefixedName = `${icons.prefix}:${iconName}`;
+---
+
+<!-- If the logo doesn't exist in SimpleIcons, fallback to puzzle piece in Phosphor -->
+<!-- It might be a good idea to have different sizes for these icons because they probably follow different scales. -->
+{
+    iconName in icons.icons ? (
+        <Icon name={prefixedName} />
+    ) : (
+        <Icon name="ph:puzzle-piece-duotone" />
+    )
+}
+
+<style>
+    [data-icon] {
+        @apply h-8 w-8;
+    }
+</style>

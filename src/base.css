@@ -11,3 +11,18 @@
         @apply font-bold text-sm;
     }
 }
+
+@layer components {
+    :root {
+        --grid-dynamic-min: 20rem;
+    }
+
+    .grid-dynamic-base {
+        @apply grid grid-cols-[repeat(auto-fill,_minmax(var(--grid-dynamic-min),_1fr))];
+    }
+    
+    .grid-dynamic-sm {
+        --grid-dynamic-min: 12rem;
+        @apply grid-dynamic-base;
+    }
+}

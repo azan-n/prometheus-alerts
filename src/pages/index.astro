@@ -1,4 +1,5 @@
 ---
+import "../base.css";
 import yaml from "js-yaml";
 const response = await fetch(
 	"https://raw.githubusercontent.com/samber/awesome-prometheus-alerts/refs/heads/master/_data/rules.yml",
@@ -44,7 +45,7 @@ type JsonExpected = {
 };
 ---
 
-<html lang="en">
+<html lang="en" class="prose prose-sm max-w-full">
 	<head>
 		<meta charset="utf-8" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -58,14 +59,14 @@ type JsonExpected = {
 				// const exportes = group.exporters.map((exporter) => )
 				return (
 					<>
-						<h1 class="font-bold">{group.name}</h1>
-						{group.services.map((service) => {
-							return (
-								<div class="border grid grid-cols-4">
-									<div>
+						<h1 class="text-base">{group.name}</h1>
+						<div class="grid grid-cols-4 gap-8">
+							{group.services.map((service) => {
+								return (
+									<div class="border p-2">
 										<h2>{service.name}</h2>
-										<p>
-											<span class="uppercase">
+										<p class="max-h-36 text-ellipsis line-clamp-3">
+											<span class="uppercase text-sm p-1 text-gray-50 bg-gray-400 rounded-sm">
 												{service.exporters
 													.map((exporter) => {
 														return exporter.rules
@@ -77,26 +78,18 @@ type JsonExpected = {
 															(cur ?? 0)
 														);
 													}, 0)}{" "}
-												rules
-											</span>{" "}
-											<span>
-												{service.exporters.map(
-													(exp) => {
-														return exp.rules
-															?.map(
-																(rule) =>
-																	rule.name,
-															)
-															.join(", ");
-													},
-												)}
-											</span>
+												rules</span>{" "}
+											{service.exporters.map((exp) => {
+												return exp.rules
+													?.map((rule) => rule.name)
+													.join(", ");
+											})}
 											{/* {service.exporters.map((ex) => {})} */}
 										</p>
 									</div>
-								</div>
-							);
-						})}
+								);
+							})}
+						</div>
 					</>
 				);
 			})

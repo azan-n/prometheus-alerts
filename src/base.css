@@ -7,7 +7,7 @@
         @apply font-sans;
     }
 
-    h1 {
+    h2 {
         @apply font-bold text-sm;
     }
 }

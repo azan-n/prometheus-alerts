@@ -74,12 +74,14 @@ type JsonExpected = {
 			</section>
 		</header>
 		<main class="mx-auto max-w-5xl px-4 my-8">
+			<h1 class="text-lg mb-8">Browse Library</h1>
+			<input type="search" class=""/>
 			{
 				json.groups.map((group) => {
 					// const exportes = group.exporters.map((exporter) => )
 					return (
 						<section [data-group-name]={group.name} class="mb-16" >
-							<h1 class="text-sm uppercase text-gray-600 mb-2">{group.name}</h1>
+							<h2 class="text-sm uppercase text-gray-600 mb-2">{group.name}</h2>
 							<div class="grid grid-dynamic-base gap-6">
 								{group.services.map((service) => {
 									return (

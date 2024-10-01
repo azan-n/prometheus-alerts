@@ -18,6 +18,7 @@
     "typescript": "^5.6.2"
   },
   "devDependencies": {
+    "@iconify-json/ph": "^1.2.0",
     "@iconify-json/simple-icons": "^1.2.5",
     "@types/js-yaml": "^4.0.9",
     "js-yaml": "^4.1.0"

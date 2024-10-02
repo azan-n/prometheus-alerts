@@ -1,11 +1,10 @@
 ---
 import "../base.css";
+import json from "data/rules.json";
+import Header from "src/components/Header.astro";
+import ServiceCard from "src/components/ServiceCard.astro";
 
-import ServiceLogo from "../components/ServiceLogo.astro";
-import Logo from '../components/Logo.astro'
-import { getAlertData } from "../../lib/getAlertData";
-
-const alerts = await getAlertData();
+export type RuleSet = typeof json;
 ---
 
 <html lang="en">
@@ -29,55 +28,20 @@ const alerts = await getAlertData();
 		<title>Awesome Astro Prometheus</title>
 	</head>
 	<body>
-		<header class="border-b py-4 sticky top-0 bg-white">
-			<section class="mx-auto max-w-5xl px-4">
-				<!-- Logo -->
-				<Logo />
-			</section>
-		</header>
+		<Header />
 		<main class="mx-auto max-w-5xl px-4 my-8">
-			<h1 class="text-lg mb-8">Browse Library</h1>
-			<input type="search" class=""/>
+			<h1>Browse Library</h1>
+			<input type="search" class="w-full"/>
 			{
-				alerts.groups.map((group) => {
+				json.groups.map((group) => {
 					return (
 						<section [data-group-name]={group.name} class="mb-16" >
-							<h2 class="text-sm uppercase text-gray-600 mb-2">{group.name}</h2>
+							<h2>{group.name}</h2>
+							{/* Card grid */}
 							<div class="grid grid-dynamic-base gap-6">
 								{group.services.map((service) => {
 									return (
-										<div class="border p-6">
-											<div class="flex flex-row gap-2 pb-4 items-center">
-												<ServiceLogo iconName={service.name.split(" ")[0]?.toLowerCase() ?? ""} />
-												<h3 class="font-bold">{service.name}</h3>
-											</div>
-											<p class="text-ellipsis line-clamp-3">
-												<span class="tag">
-													{service.exporters
-														.map((exporter) => {
-															return exporter
-																.rules?.length;
-														})
-														.reduce((prev, cur) => {
-															return (
-																(prev ?? 0) +
-																(cur ?? 0)
-															);
-														}, 0)}{" "}
-													rules</span>{" "}
-												{service.exporters.map(
-													(exp) => {
-														return exp.rules
-															?.map(
-																(rule) =>
-																	rule.name,
-															)
-															.join(", ");
-													},
-												)}
-												{/* {service.exporters.map((ex) => {})} */}
-											</p>
-										</div>
+										<ServiceCard service={service}/>
 									);
 								})}
 							</div>

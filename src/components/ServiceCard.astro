@@ -1,0 +1,48 @@
+---
+function getRuleCount(service: Service): number {
+    // 0 if all exporters in service have no/null rules
+    return (
+        service.exporters
+            .map((exporter) => {
+                return exporter.rules?.length;
+            })
+            .reduce((prev, cur) => {
+                return (prev ?? 0) + (cur ?? 0);
+            }, 0) ?? 0
+    );
+}
+
+import type { RuleSet } from "src/pages/index.astro";
+import ServiceLogo from "./ServiceLogo.astro";
+
+export type Service = RuleSet["groups"][number]["services"][number];
+
+interface Props {
+    service: Service;
+}
+
+const { service } = Astro.props;
+---
+
+<div class="border p-6 grid grid-rows-3">
+    <!-- Header -->
+    <div class="flex flex-row gap-2 pb-4 items-center">
+        <ServiceLogo
+            iconName={service.name.split(" ")[0]?.toLowerCase() ?? ""}
+        />
+        <h3>{service.name}</h3>
+    </div>
+    <!-- Rules -->
+    <p class="text-ellipsis line-clamp-3">
+        <span class="tag">{`${getRuleCount(service)} rules`}</span>
+        <span>
+            {
+                service.exporters.map((exp) => {
+                    return exp.rules?.map((rule) => rule.name).join(", ");
+                })
+            }
+        </span>
+        {/* {service.exporters.map((ex) => {})} */}
+    </p>
+    <button class="block w-full">View Alert Rules</button>
+</div>

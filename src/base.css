@@ -4,11 +4,27 @@
 
 @layer base {
     html {
-        @apply font-sans;
+        @apply font-sans text-slate-800;
+    }
+
+    h1 {
+        @apply text-lg font-light mb-2;
     }
 
     h2 {
-        @apply font-bold text-sm;
+        @apply font-bold text-sm text-slate-600 mb-2 uppercase;
+    }
+
+    h3 {
+        @apply font-bold;
+    }
+
+    p {
+        @apply leading-snug text-slate-500 text-sm mb-4;
+    }
+
+    button {
+        @apply border-2 font-medium text-base py-0.5 px-2 rounded-md max-h-12 opacity-70 hover:opacity-100;
     }
 }
 
@@ -20,13 +36,13 @@
     .grid-dynamic-base {
         @apply grid grid-cols-[repeat(auto-fill,_minmax(var(--grid-dynamic-min),_1fr))];
     }
-    
+
     .grid-dynamic-sm {
         --grid-dynamic-min: 12rem;
         @apply grid-dynamic-base;
     }
 
     .tag {
-        @apply uppercase text-sm p-1 text-gray-50 bg-gray-400 rounded-md;
+        @apply uppercase text-sm p-1 bg-slate-100 text-slate-400 rounded-md font-medium;
     }
 }

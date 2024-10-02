@@ -15,6 +15,8 @@ function getRuleCount(service: Service): number {
 import type { RuleSet } from "src/pages/index.astro";
 import ServiceLogo from "./ServiceLogo.astro";
 
+import { camelCase } from "lodash-es";
+
 export type Service = RuleSet["groups"][number]["services"][number];
 
 interface Props {
@@ -44,5 +46,55 @@ const { service } = Astro.props;
         </span>
         {/* {service.exporters.map((ex) => {})} */}
     </p>
-    <button class="block w-full">View Alert Rules</button>
+    <button id={`trigger-modal-${service.name}`} class="block w-full"
+        >View Alert Rules</button
+    >
+    <dialog class="border-2 p-4 rounded-md" id={service.name}>
+        <h1>{service.name}</h1>
+        {
+            service.exporters.map((exp) => {
+                return (
+                    <>
+                        <h2>{exp.slug}</h2>
+                        {exp.rules?.map((rule) => {
+                            const summaryFallback = () =>
+                                `${rule.name} (instance {{ $labels.instance }})`;
+                            return (
+                                <>
+                                    <h3>{rule.name}</h3>
+                                    <p>{rule.description}</p>
+                                    <code>
+                                        {`- alert: ${camelCase(rule.name).replace(" ", "")}
+      expr: '${rule.query}'
+      for: ${rule.for ?? "0m"}
+      labels:
+        severity: ${rule.severity}
+      annotations:
+        summary: ${"summary" in rule && rule.summary ? rule.summary : summaryFallback()}
+        description: "${ rule.description.replace('"', '\"') } \\n  VALUE = {{ $value }}\\n  LABELS = {{ $labels }}"
+                                        `}
+                                    </code>
+                                </>
+                            );
+                        })}
+                    </>
+                );
+            })
+        }
+    </dialog>
 </div>
+
+<script>
+    const buttons = document.querySelectorAll(`[id^='trigger-modal']`);
+
+    // Handle clicks on each button.
+    buttons.forEach((button) => {
+        button.addEventListener("click", () => {
+            const modalId = button.id.replace("trigger-modal-", "");
+            const modal = document.getElementById(modalId);
+            if (modal instanceof HTMLDialogElement) {
+                modal.showModal();
+            }
+        });
+    });
+</script>

@@ -43,6 +43,6 @@
     }
 
     .tag {
-        @apply uppercase leading-none text-sm p-1 bg-slate-100 text-slate-400 rounded-full font-medium;
+        @apply uppercase leading-none text-sm p-0.5 bg-slate-100 text-slate-400 rounded-md font-medium;
     }
 }

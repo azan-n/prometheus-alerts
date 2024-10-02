@@ -24,7 +24,7 @@
     }
 
     button {
-        @apply border-2 font-medium text-base py-0.5 px-2 rounded-md max-h-12 opacity-70 hover:opacity-100;
+        @apply border-2 font-medium text-base max-h-max py-1 px-2 rounded-md max-h-12 opacity-70 hover:opacity-100;
     }
 }
 
@@ -43,6 +43,6 @@
     }
 
     .tag {
-        @apply uppercase text-sm p-1 bg-slate-100 text-slate-400 rounded-md font-medium;
+        @apply uppercase leading-none text-sm p-1 bg-slate-100 text-slate-400 rounded-full font-medium;
     }
 }

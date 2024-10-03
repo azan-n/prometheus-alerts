@@ -1,0 +1,53 @@
+---
+interface Props {
+    service: Service;
+}
+
+import type { Service } from "src/pages/index.astro";
+
+
+
+import ServiceHeader from "./ServiceHeader.astro";
+import ServiceTag from "./ServiceTag.astro";
+import ServiceRulesDialog from "./ServiceRulesDialog.astro";
+
+const { service } = Astro.props;
+
+
+---
+
+<div class="border p-6">
+    <!-- Header -->
+    <ServiceHeader service={service} />
+    <!-- Rules -->
+    <p class="text-ellipsis line-clamp-3 pt-4">
+        <ServiceTag service={service} />
+        <span>
+            {
+                service.exporters.map((exp) => {
+                    return exp.rules?.map((rule) => rule.name).join(", ");
+                })
+            }
+        </span>
+        {/* {service.exporters.map((ex) => {})} */}
+    </p>
+    <button id={`open-dialog-${service.name}`} class="block w-full"
+        >View Alert Rules</button
+    >
+    <ServiceRulesDialog service={service} />
+</div>
+
+<script>
+    const buttons = document.querySelectorAll(`[id^='open-dialog']`);
+
+    // Handle clicks on each button.
+    buttons.forEach((button) => {
+        button.addEventListener("click", () => {
+            const modalId = button.id.replace(/^open-dialog-/, "");
+            const modal = document.getElementById(modalId);
+            if (modal instanceof HTMLDialogElement) {
+                modal.showModal();
+            }
+        });
+    });
+</script>

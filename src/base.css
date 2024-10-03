@@ -24,25 +24,43 @@
     }
 
     button {
-        @apply border-2 font-medium text-base max-h-max py-1 px-2 rounded-md max-h-12 opacity-70 hover:opacity-100;
+        @apply border-2 font-medium text-base max-h-max py-1 px-2 rounded-md opacity-70 hover:opacity-100;
     }
+
+    dialog {
+        @apply max-w-5xl border-2 bg-white rounded-md;
+    }
+
+    input {
+        @apply focus:outline-none;
+    }
+
 }
 
 @layer components {
     :root {
         --grid-dynamic-min: 18rem;
     }
-
+    
     .grid-dynamic-base {
         @apply grid grid-cols-[repeat(auto-fill,_minmax(var(--grid-dynamic-min),_1fr))];
     }
-
+    
     .grid-dynamic-sm {
         --grid-dynamic-min: 12rem;
         @apply grid-dynamic-base;
     }
-
+    
+    /* Oxymoron much? */
+    .text-emphasis-muted {
+        @apply bg-slate-100 text-slate-400;
+    }
+    
     .tag {
-        @apply uppercase leading-none text-sm p-0.5 bg-slate-100 text-slate-400 rounded-md font-medium;
+        @apply uppercase leading-none text-sm p-0.5 text-emphasis-muted rounded-md font-medium;
+    }
+    
+    .input {
+        @apply border border-gray-300 bg-white  rounded-md p-2 focus:ring-slate-500 focus:border-slate-500 text-sm;
     }
 }

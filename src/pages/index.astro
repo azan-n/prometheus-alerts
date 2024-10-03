@@ -3,6 +3,7 @@ import "../base.css";
 import json from "data/rules.json";
 import Header from "src/components/Header.astro";
 import ServiceCard from "src/components/service/ServiceCard.astro";
+import {Icon} from "astro-icon/components";
 
 // Types inferred from JSON
 export type RuleSet = typeof json;
@@ -36,7 +37,11 @@ export type Rule = NonNullable<Exporter['rules']>[number]
 		<Header />
 		<main class="mx-auto max-w-6xl px-4 my-8">
 			<h1>Browse Library</h1>
-			<input type="search" class="w-full"/>
+			<!-- Search input -->
+			<label class="input flex items-center gap-2 mb-8">
+				<Icon name="ph:magnifying-glass" />
+				<input type="search" placeholder="Search for a component" class="flex-grow" />
+			</label>
 			{
 				json.groups.map((group) => {
 					return (

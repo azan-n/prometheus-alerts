@@ -7,3 +7,4 @@
 ## Sidenotes
 - It might be a good idea to convert the YAML to JSON and store it in the repo instead of fetching it here. That is what they are doing in the [build step](https://github.com/samber/awesome-prometheus-alerts/blob/35596c866f129e3134f7ac705e90f50002dae073/.github/workflows/dist.yml#L32) anyway. I wonder why they store the default in YAML if they end up converting it to JSON anyway.
 - [Simple Icons](https://simpleicons.org/) has no color by default.
+- The type scale is a little messy at the moment. It would be nice to set the tailwind config to constraint colors in the project.

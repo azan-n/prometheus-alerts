@@ -2,9 +2,14 @@
 import "../base.css";
 import json from "data/rules.json";
 import Header from "src/components/Header.astro";
-import ServiceCard from "src/components/ServiceCard.astro";
+import ServiceCard from "src/components/service/ServiceCard.astro";
 
+// Types inferred from JSON
 export type RuleSet = typeof json;
+export type Group = RuleSet["groups"][number]
+export type Service = Group["services"][number];
+export type Exporter = Service['exporters'][number]
+export type Rule = NonNullable<Exporter['rules']>[number]
 ---
 
 <html lang="en">

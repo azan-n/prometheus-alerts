@@ -1,5 +1,5 @@
 {
-  "name": "awesome-prometheus",
+  "name": "prometheus-rules",
   "type": "module",
   "version": "0.0.1",
   "scripts": {

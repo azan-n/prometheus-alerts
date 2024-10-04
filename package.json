@@ -1,5 +1,5 @@
 {
-  "name": "prometheus-rules",
+  "name": "prometheus-alerts",
   "type": "module",
   "version": "0.0.1",
   "scripts": {

@@ -9,3 +9,4 @@
 - [Simple Icons](https://simpleicons.org/) has no color by default.
 - The type scale is a little messy at the moment. It would be nice to set the tailwind config to constraint colors in the project.
 - I never noticed this before but Astro components and `<script>` tags within them cannot share variables directly which is a bit of a pain. Probably for good reason though.
+- Fixed width on the logo might be better. That way we can have a common variable across the project for `head.title` and contents of the logo. However, the logo will not scale down on smaller sizes with the current setup.

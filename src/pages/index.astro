@@ -3,14 +3,14 @@ import "../base.css";
 import json from "data/rules.json";
 import Header from "src/components/Header.astro";
 import ServiceCard from "src/components/service/ServiceCard.astro";
-import {Icon} from "astro-icon/components";
+import { Icon } from "astro-icon/components";
 
 // Types inferred from JSON
 export type RuleSet = typeof json;
-export type Group = RuleSet["groups"][number]
+export type Group = RuleSet["groups"][number];
 export type Service = Group["services"][number];
-export type Exporter = Service['exporters'][number]
-export type Rule = NonNullable<Exporter['rules']>[number]
+export type Exporter = Service["exporters"][number];
+export type Rule = NonNullable<Exporter["rules"]>[number];
 ---
 
 <html lang="en">
@@ -52,14 +52,12 @@ export type Rule = NonNullable<Exporter['rules']>[number]
 			{
 				json.groups.map((group) => {
 					return (
-						<section [data-group-name]={group.name} class="mb-16" >
+						<section data-group-name={group.name} class="mb-16">
 							<h2>{group.name}</h2>
 							{/* Card grid */}
 							<div class="grid grid-dynamic-base gap-6">
 								{group.services.map((service) => {
-									return (
-										<ServiceCard service={service}/>
-									);
+									return <ServiceCard service={service} />;
 								})}
 							</div>
 						</section>
@@ -80,3 +78,29 @@ export type Rule = NonNullable<Exporter['rules']>[number]
 		</footer>
 	</body>
 </html>
+
+<script>
+	const input = document.getElementById("component-search");
+
+	if (input instanceof HTMLInputElement) {
+		input.addEventListener("keypress", (ev) => {
+			if (ev.target instanceof HTMLInputElement) {
+				const HIDDEN_CLASS = "hidden";
+				const searchTerm = ev.target.value;
+				if (searchTerm != "") {
+					const cards = document.querySelectorAll(
+						`div[data-service-name]:not([data-service-name^=${searchTerm}])`,
+					);
+					cards.forEach((card) => {
+						card.classList.add(HIDDEN_CLASS);
+					});
+				} else {
+					const cards = document.querySelectorAll(`div[data-service-name]`);
+					cards.forEach((card)=> {
+						card.classList.remove(HIDDEN_CLASS);
+					})
+				}
+			}
+		});
+	}
+</script>

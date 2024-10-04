@@ -16,7 +16,7 @@ const { service } = Astro.props;
 
 ---
 
-<div class="border p-6">
+<div data-service-name={service.name} class="border p-6">
     <!-- Header -->
     <ServiceHeader service={service} />
     <!-- Rules -->

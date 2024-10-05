@@ -1,7 +1,7 @@
 'use client';
 
 import { Dialog, DialogHeader, DialogContent, DialogTrigger, DialogClose } from "../ui/dialog";
-import type { Service, Rule } from "src/pages/index.astro";
+import type { Service } from "src/pages/index.astro";
 import { Button } from "../ui/button";
 import { SiApache, SiApachecassandra, SiApachehadoop, SiApachekafka, SiApachepulsar, SiCeph, SiClickhouse, SiCloudflare, SiConsul, SiDocker, SiEtcd, SiHashicorp, SiIstio, SiJenkins, SiJunipernetworks, SiKubernetes, SiLinkerd, SiMeilisearch, SiMinio, SiMongodb, SiMysql, SiNatsdotio, SiNetdata, SiNginx, SiNomad, SiOpenzfs, SiPostgresql, SiPrometheus, SiRabbitmq, SiRedis, SiSidekiq, SiSpeedtest, SiTraefikmesh, SiVmware, SiWindows } from "react-icons/si";
 import { PiPuzzlePieceFill, PiX } from "react-icons/pi";

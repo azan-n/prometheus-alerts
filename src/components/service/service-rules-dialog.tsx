@@ -87,14 +87,35 @@ export function ServiceIcon({ iconName }: { iconName: string }) {
         default: PiPuzzlePieceFill,
     };
 
-    const IconComponent = iconName.toLowerCase() in ICON_MAP ? ICON_MAP[iconName.toLowerCase()] : ICON_MAP.default;
-    
+    const COLOR_MAP: Record<keyof typeof ICON_MAP, string> = {
+        prometheus: '#E6522C',
+        netdata: '#00AB44',
+        vmware: '#607078',
+        docker: '#2496ED',
+        postgresql: '#4169E1',
+        redis: '#FF4438',
+        elasticsearch: '#005571',
+        rabbitmq: '#FF6600',
+        mongodb: '#47A248',
+        meilisearch: '#FF5CAA',
+        vault: '#FFEC6E',
+        cassandra: '#1287B1',
+        clickhouse: '#FFCC01',
+        kafka: '#231F20',
+        pulsar: '#188FFF',
+        nats: '#27AAE1',
+        
+    }
+
+    const normalizedIconName = iconName.toLowerCase();
+    const IconComponent = normalizedIconName in ICON_MAP ? ICON_MAP[normalizedIconName] : ICON_MAP.default;
+
     // Please Typescript.
     if (!IconComponent) {
         return null;
     }
 
-    return <IconComponent className="h-8 w-8" />
+    return <IconComponent color={normalizedIconName in COLOR_MAP ? COLOR_MAP[normalizedIconName] : null} className="h-8 w-8" />
 }
 
 export function ServiceTag({ service }: { service: Service }) {

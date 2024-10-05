@@ -20,9 +20,7 @@
   "devDependencies": {
     "@iconify-json/ph": "^1.2.0",
     "@iconify-json/simple-icons": "^1.2.5",
-    "@types/js-yaml": "^4.0.9",
     "@types/lodash-es": "^4.17.12",
-    "js-yaml": "^4.1.0",
     "lodash-es": "^4.17.21"
   }
 }

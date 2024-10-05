@@ -3,7 +3,7 @@ import "../base.css";
 import json from "data/rules.json";
 import Header from "src/components/Header.astro";
 import ServiceCard from "src/components/service/ServiceCard.astro";
-import { Input } from "@/components/ui/input";
+import { PiMagnifyingGlass } from "react-icons/pi";
 // Types inferred from JSON
 export type RuleSet = typeof json;
 export type Group = RuleSet["groups"][number];
@@ -36,12 +36,15 @@ export type Rule = NonNullable<Exporter["rules"]>[number];
 		<Header />
 		<main class="mx-auto max-w-6xl px-4 my-8">
 			<h1>Browse Library</h1>
-			<Input
-				id="component-search"
-				type="search"
-				placeholder="Search for a component"
-				className="mb-8"
-			/>
+			<div class="input mb-8 flex flex-row items-center gap-2">
+				<PiMagnifyingGlass />
+				<input
+					id="component-search"
+					name="component-search"
+					type="search"
+					placeholder="Search for a component"
+					class="flex-grow" />
+			</div>
 
 			<!-- Groups -->
 			{
@@ -76,12 +79,13 @@ export type Rule = NonNullable<Exporter["rules"]>[number];
 
 <script>
 	const HIDDEN_CLASS = "hidden";
+	const SERVICE_CARD_SELECTOR = "[data-service-name]";
 
 	function filterServices(searchTerm: string) {
 		const sections = document.querySelectorAll("[data-group-name]"); // Select all group sections
 
 		sections.forEach((section) => {
-			const services = section.querySelectorAll("[data-service-name]"); // Select all service cards in this section
+			const services = section.querySelectorAll(SERVICE_CARD_SELECTOR); // Select all service cards in this section
 			let hasVisibleService = false;
 
 			services.forEach((serviceCard) => {
@@ -109,7 +113,7 @@ export type Rule = NonNullable<Exporter["rules"]>[number];
 
 	const input = document.getElementById("component-search");
 	if (input instanceof HTMLInputElement) {
-		input.addEventListener("keydown", (ev) => {
+		input.addEventListener("keyup", (ev) => {
 			if (ev.target instanceof HTMLInputElement) {
 				filterServices(ev.target.value);
 			}

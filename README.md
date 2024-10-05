@@ -9,7 +9,7 @@
 - Fixed width on the logo might be better. That way we can have a common variable across the project for `head.title` and contents of the logo. However, the logo will not scale down on smaller sizes with the current setup.
 - Ran into npm cli issues with package-lock.json https://github.com/npm/cli/issues/4828
 
-# Notes from whence React came
+# Notes from when React was added
 - React in Astro is like async in JS, you make one function async and everything ends up being async. You make one component JSX and (almost) everything ends up being JSX.
 - Using React with Astro prevents us from using astro-icon or the native syntax highlighting using the `Code` component.
 - Dynamic icon imports are messy with React/any SPA. Importing a lot of icons will increase the page load time (unless we code-split well). We could rely on SVG imports through CSS to prevent bloating the bundle as is done with Iconify.

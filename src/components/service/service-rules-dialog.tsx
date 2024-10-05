@@ -8,7 +8,10 @@ import { PiPuzzlePieceFill, PiX } from "react-icons/pi";
 import { Badge } from "../ui/badge";
 import type { ReactNode } from "react";
 
-
+/**
+ * Dialog component, `children` object shows exporter.rules
+ * Since the content within exporter.rules is mostly static, it is rendered by Astro at build time.
+ */
 export function ServiceRulesDialog({ service, children }: { service: Service, children: ReactNode }) {
     return (<Dialog key={service.name}>
         <DialogTrigger asChild>
@@ -104,7 +107,7 @@ export function ServiceIcon({ iconName }: { iconName: string }) {
         kafka: '#231F20',
         pulsar: '#188FFF',
         nats: '#27AAE1',
-        
+
     }
 
     const normalizedIconName = iconName.toLowerCase();

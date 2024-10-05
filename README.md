@@ -14,7 +14,8 @@
 - Using React with Astro prevents us from using astro-icon or the native syntax highlighting using the `Code` component.
 - Dynamic icon imports are messy with React/any SPA. Importing a lot of icons will increase the page load time (unless we code-split well). We could rely on SVG imports through CSS to prevent bloating the bundle as is done with Iconify.
 - Shiki seems to be biased toward running on the server, so I looked at [prism-react-renderer](https://github.com/FormidableLabs/prism-react-renderer) which feels like a lot of effort since we have to define how pre, code and other tags are rendered everytime.
-- https://www.npmjs.com/package/react-syntax-highlighter is unable to import styles https://github.com/react-syntax-highlighter/react-syntax-highlighter/issues/509
-- https://docs.astro.build/en/guides/framework-components/#can-i-use-astro-components-inside-my-framework-components
-- https://docs.astro.build/en/guides/integrations-guide/react/#children-parsing experimentalReactChildren: true also breaks things
+- [react-syntax-highlighter](https://www.npmjs.com/package/react-syntax-highlighter) is unable to import styles [#509](https://github.com/react-syntax-highlighter/react-syntax-highlighter/issues/509). This is likely due to how Astro handles imports in React components.
+- [Framework components](https://docs.astro.build/en/guides/framework-components/#can-i-use-astro-components-inside-my-framework-components) cannot use Astro components within them.
+- [`experimentalReactChildren: true`](https://docs.astro.build/en/guides/integrations-guide/react/#children-parsing ) also breaks things completely so we'll stick to using one child per component in React components.
 - Using React for searching is prone to the Blue/Green I mentioned earlier. This would mean the whole 'rules.json' gets loaded on the client, or requires dynamic fetching, which really depends on the requirement. The rules.json here hasn't changed in 2 years so it shouldn't matter (I guess?). If the searching is to be done using React, might as well just use React at that point because you end up with none of the benefits of Astro and all the pain points of the Astro<->React Bridge.
+- Using pnpm fixed the package-lock.json issue.

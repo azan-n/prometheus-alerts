@@ -3,10 +3,18 @@
 @tailwind utilities;
 
 @layer base {
+    * {
+        @apply border-border;
+    }
+
     html {
         @apply font-sans;
     }
-
+    
+    body {
+        @apply bg-background text-foreground;
+    }
+    
     h1 {
         @apply text-lg font-light mb-2;
     }
@@ -21,6 +29,10 @@
 
     p {
         @apply leading-snug text-slate-500 text-sm mb-4;
+    }
+
+    a {
+        @apply text-secondary-foreground/85 hover:text-secondary-foreground underline;
     }
 
     input {
@@ -101,19 +113,6 @@
     }
 
     .input {
-        @apply border border-gray-300 bg-white  rounded-md p-2 focus:ring-slate-500 focus:border-slate-500 text-sm;
+        @apply border border-input bg-background rounded-md p-2 focus:ring-ring focus:border-ring text-sm;
     }
-}
-
-@layer base {
-    * {
-        @apply border-border;
-
-    }
-
-    body {
-        @apply bg-background text-foreground;
-
-    }
-
 }

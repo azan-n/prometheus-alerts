@@ -4,16 +4,18 @@ interface Props {
 }
 
 import type { Service } from "src/pages/index.astro";
-
-import {ServiceHeader, ServiceTag} from "./ServiceRulesDialog.tsx";
-import { ServiceRulesDialog } from "./ServiceRulesDialog";
+import { ServiceRulesDialog, ServiceHeader, ServiceTag } from "./service-rules-dialog.tsx";
 import { Card } from "../ui/card";
+import ExporterRules from './ExporterRules.astro'
 
 const { service } = Astro.props;
 ---
-
-<Card key={service.name} className="p-4 grid grid-rows-subgrid gap-3 row-span-3">
-<!-- Header -->
+<Card
+    key={service.name}
+    data-service-name={service.name}
+    className="p-4 grid grid-rows-subgrid gap-3 row-span-3"
+>
+    <!-- Header -->
     <div class="row-start-1 row-end-2">
         <ServiceHeader service={service} />
     </div>
@@ -31,6 +33,9 @@ const { service } = Astro.props;
 
     <!-- Astro integration glitching?? -->
     <div class="row-start-3 row-end-4">
-        <ServiceRulesDialog service={service} client:load />
+        <ServiceRulesDialog service={service} client:load >
+            <!-- Prerendered Astro content, prevents having to get a code-highlighter on runtime -->
+            <ExporterRules exporters={service.exporters} />
+        </ServiceRulesDialog>
     </div>
 </Card>

@@ -40,9 +40,8 @@ export type Rule = NonNullable<Exporter["rules"]>[number];
 				id="component-search"
 				type="search"
 				placeholder="Search for a component"
-					class="flex-grow"
-				/>
-			</div>
+				className="mb-8"
+			/>
 
 			<!-- Groups -->
 			{
@@ -76,26 +75,43 @@ export type Rule = NonNullable<Exporter["rules"]>[number];
 </html>
 
 <script>
-	const input = document.getElementById("component-search");
+	const HIDDEN_CLASS = "hidden";
 
-	if (input instanceof HTMLInputElement) {
-		input.addEventListener("keypress", (ev) => {
-			if (ev.target instanceof HTMLInputElement) {
-				const HIDDEN_CLASS = "hidden";
-				const searchTerm = ev.target.value;
-				if (searchTerm != "") {
-					const cards = document.querySelectorAll(
-						`div[data-service-name]:not([data-service-name^=${searchTerm}])`,
-					);
-					cards.forEach((card) => {
-						card.classList.add(HIDDEN_CLASS);
-					});
-				} else {
-					const cards = document.querySelectorAll(`div[data-service-name]`);
-					cards.forEach((card)=> {
-						card.classList.remove(HIDDEN_CLASS);
-					})
+	function filterServices(searchTerm: string) {
+		const sections = document.querySelectorAll("[data-group-name]"); // Select all group sections
+
+		sections.forEach((section) => {
+			const services = section.querySelectorAll("[data-service-name]"); // Select all service cards in this section
+			let hasVisibleService = false;
+
+			services.forEach((serviceCard) => {
+				const serviceName = serviceCard
+					.getAttribute("data-service-name")
+					?.toLowerCase(); // Get the service name from the data attribute
+				if (serviceName) {
+					if (serviceName.includes(searchTerm)) {
+						serviceCard.classList.remove(HIDDEN_CLASS); // Show service card if it matches
+						hasVisibleService = true;
+					} else {
+						serviceCard.classList.add(HIDDEN_CLASS); // Hide service card if it doesn't match
+					}
 				}
+			});
+
+			// Hide the entire section if no services are visible
+			if (hasVisibleService) {
+				section.classList.remove(HIDDEN_CLASS);
+			} else {
+				section.classList.add(HIDDEN_CLASS);
+			}
+		});
+	}
+
+	const input = document.getElementById("component-search");
+	if (input instanceof HTMLInputElement) {
+		input.addEventListener("keydown", (ev) => {
+			if (ev.target instanceof HTMLInputElement) {
+				filterServices(ev.target.value);
 			}
 		});
 	}

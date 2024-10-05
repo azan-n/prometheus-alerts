@@ -1,0 +1,48 @@
+---
+import type { Exporter } from "@/pages/index.astro";
+import { Code } from "astro:components";
+import { getYamlForRule } from "@/lib/getYamlForRule";
+import { CopyButton } from "./copy-button";
+
+interface Props {
+    exporters: Exporter[];
+}
+
+const { exporters } = Astro.props;
+---
+
+{
+    exporters.map((exp) => {
+        return (
+            <article class="p-4">
+                <h2>{exp.slug}</h2>
+                {exp.rules?.map((rule, index) => {
+                    return (
+                        <section class="grid grid-cols-[min-content_minmax(0,_1fr)] gap-4 mb-8">
+                            {/* Circular number indicator */}
+                            <div class="h-8 w-8 text-center leading-8 rounded-full bg-secondary text-secondary-foreground">
+                                {index + 1}
+                            </div>
+                            <div>
+                                <h3>{rule.name}</h3>
+                                <p>{rule.description}</p>
+                                <div class="rounded-md">
+                                    <CopyButton
+                                        content={getYamlForRule(rule)}
+                                        client:load
+                                    />
+                                    <Code
+                                        class="p-4 rounded-md"
+                                        code={getYamlForRule(rule)}
+                                        lang="yaml"
+                                        theme="catppuccin-latte"
+                                    />
+                                </div>
+                            </div>
+                        </section>
+                    );
+                })}
+            </article>
+        );
+    })
+}

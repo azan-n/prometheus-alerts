@@ -23,6 +23,10 @@
         @apply leading-snug text-slate-500 text-sm mb-4;
     }
 
+    input {
+        @apply focus:outline-none;
+    }
+
     :root {
         --background: 0 0% 100%;
         --foreground: 0 0% 3.9%;
@@ -94,6 +98,10 @@
     .grid-dynamic-sm {
         --grid-dynamic-min: 12rem;
         @apply grid-dynamic-base;
+    }
+
+    .input {
+        @apply border border-gray-300 bg-white  rounded-md p-2 focus:ring-slate-500 focus:border-slate-500 text-sm;
     }
 }
 

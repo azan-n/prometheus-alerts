@@ -3,8 +3,7 @@ import "../base.css";
 import json from "data/rules.json";
 import Header from "src/components/Header.astro";
 import ServiceCard from "src/components/service/ServiceCard.astro";
-import { Icon } from "astro-icon/components";
-
+import { PiMagnifyingGlass } from "react-icons/pi";
 // Types inferred from JSON
 export type RuleSet = typeof json;
 export type Group = RuleSet["groups"][number];
@@ -16,7 +15,7 @@ export type Rule = NonNullable<Exporter["rules"]>[number];
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="src/icons/logo.svg" />
+		<link rel="icon" type="image/svg+xml" href="/logo.svg" />
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
 		<!-- Inter -->
@@ -37,15 +36,14 @@ export type Rule = NonNullable<Exporter["rules"]>[number];
 		<Header />
 		<main class="mx-auto max-w-6xl px-4 my-8">
 			<h1>Browse Library</h1>
-			<!-- Search input -->
-			<div class="input flex items-center gap-2 mb-8">
-				<Icon name="ph:magnifying-glass" />
+			<div class="input mb-8 flex flex-row items-center gap-2">
+				<PiMagnifyingGlass />
 				<input
 					id="component-search"
+					name="component-search"
 					type="search"
 					placeholder="Search for a component"
-					class="flex-grow"
-				/>
+					class="flex-grow" />
 			</div>
 
 			<!-- Groups -->
@@ -70,9 +68,10 @@ export type Rule = NonNullable<Exporter["rules"]>[number];
 			<section class="max-w-6xl mx-auto">
 				<p>
 					Built with Astro. <a
+						target="_blank"
 						href="https://samber.github.io/awesome-prometheus-alerts/"
 						>Original by samber.</a
-					>.
+					>
 				</p>
 			</section>
 		</footer>
@@ -80,26 +79,44 @@ export type Rule = NonNullable<Exporter["rules"]>[number];
 </html>
 
 <script>
-	const input = document.getElementById("component-search");
+	const HIDDEN_CLASS = "hidden";
+	const SERVICE_CARD_SELECTOR = "[data-service-name]";
 
-	if (input instanceof HTMLInputElement) {
-		input.addEventListener("keypress", (ev) => {
-			if (ev.target instanceof HTMLInputElement) {
-				const HIDDEN_CLASS = "hidden";
-				const searchTerm = ev.target.value;
-				if (searchTerm != "") {
-					const cards = document.querySelectorAll(
-						`div[data-service-name]:not([data-service-name^=${searchTerm}])`,
-					);
-					cards.forEach((card) => {
-						card.classList.add(HIDDEN_CLASS);
-					});
-				} else {
-					const cards = document.querySelectorAll(`div[data-service-name]`);
-					cards.forEach((card)=> {
-						card.classList.remove(HIDDEN_CLASS);
-					})
+	function filterServices(searchTerm: string) {
+		const sections = document.querySelectorAll("[data-group-name]"); // Select all group sections
+
+		sections.forEach((section) => {
+			const services = section.querySelectorAll(SERVICE_CARD_SELECTOR); // Select all service cards in this section
+			let hasVisibleService = false;
+
+			services.forEach((serviceCard) => {
+				const serviceName = serviceCard
+					.getAttribute("data-service-name")
+					?.toLowerCase(); // Get the service name from the data attribute
+				if (serviceName) {
+					if (serviceName.includes(searchTerm)) {
+						serviceCard.classList.remove(HIDDEN_CLASS); // Show service card if it matches
+						hasVisibleService = true;
+					} else {
+						serviceCard.classList.add(HIDDEN_CLASS); // Hide service card if it doesn't match
+					}
 				}
+			});
+
+			// Hide the entire section if no services are visible
+			if (hasVisibleService) {
+				section.classList.remove(HIDDEN_CLASS);
+			} else {
+				section.classList.add(HIDDEN_CLASS);
+			}
+		});
+	}
+
+	const input = document.getElementById("component-search");
+	if (input instanceof HTMLInputElement) {
+		input.addEventListener("keyup", (ev) => {
+			if (ev.target instanceof HTMLInputElement) {
+				filterServices(ev.target.value);
 			}
 		});
 	}

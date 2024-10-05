@@ -17,5 +17,4 @@
 - https://www.npmjs.com/package/react-syntax-highlighter is unable to import styles https://github.com/react-syntax-highlighter/react-syntax-highlighter/issues/509
 - https://docs.astro.build/en/guides/framework-components/#can-i-use-astro-components-inside-my-framework-components
 - https://docs.astro.build/en/guides/integrations-guide/react/#children-parsing experimentalReactChildren: true also breaks things
-
-- Using React for searching is prone to the Blue/Green I mentioned earlier. This would mean the whole 'rules.json' gets loaded on the client, or requires dynamic fetching, which really depends on the requirement. The rules.json here hasn't changed in 2 years so it shouldn't matter (I guess?). 
+- Using React for searching is prone to the Blue/Green I mentioned earlier. This would mean the whole 'rules.json' gets loaded on the client, or requires dynamic fetching, which really depends on the requirement. The rules.json here hasn't changed in 2 years so it shouldn't matter (I guess?). If the searching is to be done using React, might as well just use React at that point because you end up with none of the benefits of Astro and all the pain points of the Astro<->React Bridge.

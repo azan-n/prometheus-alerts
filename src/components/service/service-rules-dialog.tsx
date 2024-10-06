@@ -3,10 +3,9 @@
 import { Dialog, DialogHeader, DialogContent, DialogTrigger, DialogClose } from "../ui/dialog";
 import type { Service } from "src/pages/index.astro";
 import { Button } from "../ui/button";
-import { SiApache, SiApachecassandra, SiApachehadoop, SiApachekafka, SiApachepulsar, SiCeph, SiClickhouse, SiCloudflare, SiConsul, SiDocker, SiEtcd, SiHashicorp, SiIstio, SiJenkins, SiJunipernetworks, SiKubernetes, SiLinkerd, SiMeilisearch, SiMinio, SiMongodb, SiMysql, SiNatsdotio, SiNetdata, SiNginx, SiNomad, SiOpenzfs, SiPostgresql, SiPrometheus, SiRabbitmq, SiRedis, SiSidekiq, SiSpeedtest, SiTraefikmesh, SiVmware, SiWindows } from "react-icons/si";
 import { PiPuzzlePieceFill, PiX } from "react-icons/pi";
 import { Badge } from "../ui/badge";
-import type { ReactNode } from "react";
+import { useState, type ReactNode } from "react";
 
 /**
  * Dialog component, `children` object shows exporter.rules
@@ -50,75 +49,13 @@ export function ServiceHeader({ service }: { service: Service }) {
 
 
 export function ServiceIcon({ iconName }: { iconName: string }) {
-    const ICON_MAP: Record<string, React.ElementType> = {
-        prometheus: SiPrometheus,
-        docker: SiDocker,
-        windows: SiWindows,
-        netdata: SiNetdata,
-        vmware: SiVmware,
-        mysql: SiMysql,
-        postgresql: SiPostgresql,
-        redis: SiRedis,
-        mongodb: SiMongodb,
-        rabbitmq: SiRabbitmq,
-        elasticsearch: SiMeilisearch,
-        meilisearch: SiMeilisearch,
-        cassandra: SiApachecassandra,
-        clickhouse: SiClickhouse,
-        kafka: SiApachekafka,
-        pulsar: SiApachepulsar,
-        nats: SiNatsdotio,
-        hadoop: SiApachehadoop,
-        nginx: SiNginx,
-        apache: SiApache,
-        traefik: SiTraefikmesh,
-        sidekiq: SiSidekiq,
-        kubernetes: SiKubernetes,
-        nomad: SiNomad,
-        consul: SiConsul,
-        etcd: SiEtcd,
-        linkerd: SiLinkerd,
-        istio: SiIstio,
-        ceph: SiCeph,
-        speedtest: SiSpeedtest,
-        zfs: SiOpenzfs,
-        minio: SiMinio,
-        juniper: SiJunipernetworks,
-        hashicorp: SiHashicorp,
-        cloudflare: SiCloudflare,
-        jenkins: SiJenkins,
-        default: PiPuzzlePieceFill,
-    };
-
-    const COLOR_MAP: Record<keyof typeof ICON_MAP, string> = {
-        prometheus: '#E6522C',
-        netdata: '#00AB44',
-        vmware: '#607078',
-        docker: '#2496ED',
-        postgresql: '#4169E1',
-        redis: '#FF4438',
-        elasticsearch: '#005571',
-        rabbitmq: '#FF6600',
-        mongodb: '#47A248',
-        meilisearch: '#FF5CAA',
-        vault: '#FFEC6E',
-        cassandra: '#1287B1',
-        clickhouse: '#FFCC01',
-        kafka: '#231F20',
-        pulsar: '#188FFF',
-        nats: '#27AAE1',
-
-    }
-
+    // State for errors in the img element
+    const [hasError, setHasError] = useState(false);
     const normalizedIconName = iconName.toLowerCase();
-    const IconComponent = normalizedIconName in ICON_MAP ? ICON_MAP[normalizedIconName] : ICON_MAP.default;
 
-    // Please Typescript.
-    if (!IconComponent) {
-        return null;
-    }
-
-    return <IconComponent color={normalizedIconName in COLOR_MAP ? COLOR_MAP[normalizedIconName] : null} className="h-8 w-8" />
+    return hasError ? (
+        <PiPuzzlePieceFill className="h-8 w-8" /> // Render the fallback component when there is an error
+    ) :( <img className="h-8 w-8" src={`https://cdn.simpleicons.org/${normalizedIconName}`} onError={() => setHasError(true)} />)
 }
 
 export function ServiceTag({ service }: { service: Service }) {

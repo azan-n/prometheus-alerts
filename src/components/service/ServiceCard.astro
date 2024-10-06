@@ -17,7 +17,7 @@ const { service } = Astro.props;
 >
     <!-- Header -->
     <div class="row-start-1 row-end-2">
-        <ServiceHeader service={service} />
+        <ServiceHeader service={service} client:only />
     </div>
     <!-- Rules -->
     <div class="row-start-2 row-end-3 text-ellipsis line-clamp-3">

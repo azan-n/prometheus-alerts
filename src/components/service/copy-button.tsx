@@ -19,7 +19,7 @@ export function CopyButton({ content }: { content: string }) {
     return (<Button
         variant={"ghost"}
         onClick={handleCopy}
-        className="absolute right-4 rounded-br-none rounded-tl-none bg-opacity-50 rounded-md text-sm uppercase"
+        className="absolute right-8 rounded-br-none rounded-tl-none bg-secondary rounded-md text-sm uppercase"
         disabled={copied}
     >
         <PiCopy className="inline align-middle mr-1" />

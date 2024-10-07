@@ -35,7 +35,7 @@ export type Rule = NonNullable<Exporter["rules"]>[number];
 	<body>
 		<Header />
 		<main class="mx-auto max-w-6xl px-4 my-8">
-			<h1>Browse Library</h1>
+			<h1 class="heading-lg">Browse Library</h1>
 			<div class="input mb-8 flex flex-row items-center gap-2">
 				<PiMagnifyingGlass />
 				<input
@@ -51,7 +51,7 @@ export type Rule = NonNullable<Exporter["rules"]>[number];
 				json.groups.map((group) => {
 					return (
 						<section data-group-name={group.name} class="mb-16">
-							<h2>{group.name}</h2>
+							<h2 class="heading-sm">{group.name}</h2>
 							{/* Card grid */}
 							<div class="grid grid-dynamic-base gap-6">
 								{group.services.map((service) => {

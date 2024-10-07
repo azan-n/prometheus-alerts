@@ -41,7 +41,7 @@ export function ServiceHeader({ service }: { service: Service }) {
             <ServiceIcon
                 iconName={service.name.split(" ")[0] ?? ""}
             />
-            <h3>{service.name}</h3>
+            <h3 className="font-semibold">{service.name}</h3>
         </div>
     )
 }
@@ -54,9 +54,10 @@ export function ServiceIcon({ iconName }: { iconName: string }) {
     const normalizedIconName = iconName.toLowerCase();
 
     return hasError ? (
-        <PiPuzzlePieceFill className="h-8 w-8" /> // Render the fallback component when there is an error
+        <PiPuzzlePieceFill className="h-8 w-8 fill-secondary-foreground" /> // Render the fallback component when there is an error
     ) :( <img className="h-8 w-8" src={`https://cdn.simpleicons.org/${normalizedIconName}`} onError={() => setHasError(true)} />)
 }
+
 
 export function ServiceTag({ service }: { service: Service }) {
     function getRuleCount(service: Service): number {

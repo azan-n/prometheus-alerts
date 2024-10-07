@@ -14,17 +14,17 @@ const { exporters } = Astro.props;
 {
     exporters.map((exp) => {
         return (
-            <article class="p-4">
-                <h2>{exp.slug}</h2>
+            <article class="px-8 py-4">
+                <h2 class="heading-sm">{exp.slug}</h2>
                 {exp.rules?.map((rule, index) => {
                     return (
-                        <section class="grid grid-cols-[min-content_minmax(0,_1fr)] gap-4 mb-8">
+                        <section class="grid grid-cols-[min-content_minmax(0,_1fr)] gap-8 mb-8">
                             {/* Circular number indicator */}
-                            <div class="h-8 w-8 text-center leading-8 rounded-full bg-secondary text-secondary-foreground">
-                                {index + 1}
+                            <div class="h-12 w-12 text-center leading-12 rounded-full bg-secondary text-secondary-foreground">
+                                {index + 1 < 10 ? `0${index+1}` : index+1}
                             </div>
                             <div>
-                                <h3>{rule.name}</h3>
+                                <h3 class="heading-lg mb-2">{rule.name}</h3>
                                 <p>{rule.description}</p>
                                 <div class="rounded-md">
                                     <CopyButton
@@ -32,7 +32,7 @@ const { exporters } = Astro.props;
                                         client:load
                                     />
                                     <Code
-                                        class="p-4 rounded-md"
+                                        class="p-8 rounded-md"
                                         code={getYamlForRule(rule)}
                                         lang="yaml"
                                         theme="catppuccin-latte"

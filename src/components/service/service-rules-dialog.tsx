@@ -55,7 +55,7 @@ export function ServiceIcon({ iconName }: { iconName: string }) {
 
     return hasError ? (
         <PiPuzzlePieceFill className="h-8 w-8 fill-secondary-foreground" /> // Render the fallback component when there is an error
-    ) :( <img className="h-8 w-8" src={`https://cdn.simpleicons.org/${normalizedIconName}`} onError={() => setHasError(true)} />)
+    ) :( <img alt="" className="h-8 w-8" src={`https://cdn.simpleicons.org/${normalizedIconName}`} onError={() => setHasError(true)} />)
 }
 
 

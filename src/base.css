@@ -108,7 +108,7 @@
     }
 
     .heading-sm {
-        @apply font-bold text-sm mb-8 uppercase text-secondary-foreground/60;
+        @apply font-bold text-sm mb-8 uppercase text-secondary-foreground;
     }
 
     .h3 {
